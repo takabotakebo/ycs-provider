@@ -58,7 +58,7 @@ router.get('/:yabacoin', function(req, res, next) {
               "gender" : value.gender,
               "yaba_event" : value.yaba_event,
               "likedislike" : value.vector_likedislike,
-              "joysad" : value.joysad,
+              "joysad" : value.vector_joysad,
               "angerfear" : value.vector_angerfear,
               "scalar" : value.scalar
             }
