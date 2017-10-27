@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- 文字エンコードをUTF-8に指定 -->
+    <meta charset="utf-8">
+    <!-- レンダリングを最新に指定 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 拡大を禁止 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <!-- Semantic UI を読み込む -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <title>YC検索</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <link rel='stylesheet' href='/stylesheets/style.css'>
+  </head>
+  <body>
+    <div class="ui main">
+      <div id="header">
+        <p class="ui header" style="color:white;">YCS Provider 管理画面</p>
+      </div>
+      <div class="ui container">
+        <h1>Yaba Events 一覧</h1>
+        <a href="/" class="ui black label button">トップへもどる</a>
+        <div class="ui segments white">
+          <% yaba_articles.forEach(function(yaba_article) { %>
+              <div class="ui grey segment">
+                <a href="./details/<%= yaba_article.scalar %>" class="ui black ribbon label">YC:<%= yaba_article.scalar %></a>
+                <p class="ui header">YE:<%= yaba_article.yaba_event %></p>
+                <div class="ui">
+                  <i class="calendar icon"></i> <span class="ui gray">投稿時間<%= yaba_article.created_at %></span>
+                </div>
+              </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

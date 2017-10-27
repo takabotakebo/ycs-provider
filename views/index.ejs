@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- 文字エンコードをUTF-8に指定 -->
+    <meta charset="utf-8">
+    <!-- レンダリングを最新に指定 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 拡大を禁止 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <!-- Semantic UI を読み込む -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <meta name="format-detection" content="telephone=no">
+    <title>YCS-Content Management System</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div class="ui main">
+        <div id="header">
+          <p class="ui header" style="color:white;">YCS Provider 管理画面</p>
+        </div>
+        <div class="ui container">
+          <h1>Yaba Event 投稿フォーム</h1>
+          <div class="ui segment">
+            <form action="/" method="post" class="ui form">
+                <!-- <div class="field">
+                  <label>gender</label>
+                  <td>
+                     <input type=radio name="gender" value="male" checked>男
+                     <input type=radio name="gender" value="female">女
+                     <input type=radio name="gender" value="else">その他
+                  </td>
+                </div> -->
+                <div class="field">
+                  <label>Gender</label>
+                  <select name="gender" class="ui search dropdown">
+                    <option value="male">男性</option>
+                    <option value="female">女性</option>
+                    <option value="else">その他</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>Age</label>
+                  <input type="number" name="age" class="input" placeholder="年齢を半角数字で入力">
+                </div>
+
+                <div class="field">
+                  <label>Yaba_event</label>
+                  <input type="text" name="yaba_event" class="input" placeholder="やばかった出来事の文章を入力" required>
+                </div>
+
+                <label>Vector</label>
+                <div class="fields">
+                  <div class="field">
+                    <label>like↔︎dislike</label>
+                    <input type="text" name="vector_likedislike" class="input" placeholder="Like/Dislikeの数値" required>
+                  </div>
+                  <div class="field">
+                    <label>joy↔︎sad</label>
+                    <input type="text" name="vector_joysad" class="input" placeholder="Joy/Sadの数値"　required>
+                  </div>
+                  <div class="field">
+                    <label>anger↔︎fear</label>
+                    <input type="text" name="vector_angerfear" class="input" placeholder="Anger/Fearの数値"　required>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Scalar</label>
+                  <input type="text" name="scalar" class="input" placeholder="計算の結果を入力" required>
+                </div>
+
+                <button type="submit" class="ui black fluid button">YabaEvent登録</button>
+            </form>
+          </div>
+
+          <h1>YCが一致しているYEを探す</h1>
+          <div class="ui segment">
+            <div class="filed inline">
+              <a href="./details/1" class="ui black circular massive label">1</a>
+              <a href="./details/2" class="ui black circular massive label">2</a>
+              <a href="./details/3" class="ui black circular massive label">3</a>
+              <a href="./details/4" class="ui black circular massive label">4</a>
+              <a href="./details/5" class="ui black circular massive label">5</a>
+              <a href="./details/6" class="ui black circular massive label">6</a>
+              <a href="./details/7" class="ui black circular massive label">7</a>
+              <a href="./details/8" class="ui black circular massive label">8</a>
+              <a href="./details/9" class="ui black circular massive label">9</a>
+            </div>
+          </div>
+
+          <h1>Yaba Events 一覧</h1>
+          <div class="ui segments white">
+          <% yaba_articles.forEach(function(yaba_article) { %>
+              <div class="ui grey segment">
+                <a href="./details/<%= yaba_article.scalar %>" class="ui black ribbon label">YC:<%= yaba_article.scalar %></a>
+                <p class="ui header">YE:<%= yaba_article.yaba_event %></p>
+                <div class="ui">
+                  <i class="calendar icon"></i> <span class="ui gray">投稿時間<%= yaba_article.created_at %></span>
+                </div>
+              </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
