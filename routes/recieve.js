@@ -1,7 +1,5 @@
 'use strict'
 
-const express = require('express');
-const router = express.Router();
 const connection = require('../mysqlConnection');
 const fs = require('fs');
 const rimraf = require('rimraf');
@@ -10,39 +8,32 @@ const fetch = require('isomorphic-fetch');
 const osc = require('node-osc');
 let cnt = 0;
 
-//ファイルの書き込み関数
-function writeFile(path, data, cb) {
-  fs.writeFile(path, data, function (err) {
-    if (err) {
-      throw err;
-    }
-    if(cnt == 0){
-      cb();
-      cnt ++;
-      console.log("writeFile Pass");
-    }
-  });
-}
+
+//OSCで受診したコインの枚数に応じて処理を実行
+var oscServer = new osc.Server(5000,'127.0.0.1');
+console.log("OSC RECIVER");
+
+oscServer.on("message", function (msg, rinfo) {
+  console.log("Recive YabaCoin's Num :");
+  console.log(msg[1]);
 
 
-//getメソッドでアクセスされた際の処理
-router.get('/:yabacoin', function(req, res, next) {
-  let scalar = req.params.yabacoin;
+  let scalar = msg[1];
   let result_record = [];
   let jsondata = {};
 
   //tochDesignerに渡すデータを書き込む関数
-  function textfileWrite(scalar,records, cb) {
+  function textfileWrite(scalar,records) {
     console.log("query Pass");
     console.log("writeFile Try");
-    rimraf('./public/data/textsdata', function (err){
+    rimraf('../public/data/textsdata', function (err){
       if (err) {
           console.error("ERROR at rmdir");
           console.error(err);
           process.exit(1);
       }
       console.error("Deleted datafolder");
-      fs.mkdir('./public/data/textsdata', function (err) {
+      fs.mkdir('../public/data/textsdata', function (err) {
         if (err) {
             console.error("ERROR at mkdir");
             console.error(err);
@@ -63,8 +54,8 @@ router.get('/:yabacoin', function(req, res, next) {
             }
           console.log(jsondata);
           console.log("YE:" + value.yaba_event);
-          writeFile("./public/data/textsdata/text" + index + ".txt", value.yaba_event, cb);
-          jsonfile.writeFile("./public/data/data.json", jsondata, {
+          writeFile("../public/data/textsdata/text" + index + ".txt", value.yaba_event);
+          jsonfile.writeFile("../public/data/data.json", jsondata, {
               encoding: 'utf-8',
               replacer: null,
               spaces: null
@@ -84,15 +75,9 @@ router.get('/:yabacoin', function(req, res, next) {
       console.log("見つかった件数" + records.length);
       if(records.length > 0){
         result_record = records;
-        textfileWrite(scalar,result_record, function() {
-          res.render('detail', {
-            title: "YCの一致したYE一覧",
-            yaba_articles: records
-          });
-        });
+        textfileWrite(scalar,result_record);
       } else{
-        console.log("検索結果が0のためホームに戻ります");
-        res.redirect('/noresult');
+        console.log("0件なので失敗やで");
       }
     });
   }
@@ -101,4 +86,16 @@ router.get('/:yabacoin', function(req, res, next) {
 
 });
 
-module.exports = router;
+
+//ファイルの書き込み関数
+function writeFile(path, data) {
+  fs.writeFile(path, data, function (err) {
+    if (err) {
+      throw err;
+    }
+    if(cnt == 0){
+      cnt ++;
+      console.log("writeFile Pass");
+    }
+  });
+}
