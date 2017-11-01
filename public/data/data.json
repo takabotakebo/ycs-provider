@@ -1,1 +1,6 @@
-{"scalar":"4","text0":{"age":22,"gender":"male","yaba_event":"TouchDesignerが全然わかんなくて悲しい","likedislike":1,"joysad":-2,"angerfear":1,"scalar":4}}
+{
+  "scalar":"4",
+  "text0":{"age":22,"gender":"male","yaba_event":"TouchDesignerが全然わかんなくて悲しい","likedislike":1,"joysad":-2,"angerfear":1,"scalar":4},
+  "text1":{"age":23,"gender":"male","yaba_event":"TouchDesignerが全然わかんなくて悲しい","likedislike":1,"joysad":-2,"angerfear":1,"scalar":4},
+  "text2":{"age":24,"gender":"male","yaba_event":"TouchDesignerが全然わかんなくて悲しい","likedislike":1,"joysad":-2,"angerfear":1,"scalar":4}
+}
