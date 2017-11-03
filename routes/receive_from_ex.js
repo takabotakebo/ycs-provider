@@ -4,12 +4,12 @@ const osc = require('node-osc');
 
 //OSCで受診したコインの枚数に応じて処理を実行
 var oscServer = new osc.Server(4000,'127.0.0.1');
-console.log("OSC RECIVER");
+console.log("OSC RECEIVER");
 
 oscServer.on("message", function (msg, rinfo) {
   msg.shift() ;
   msg = utf8_bytes_to_string(msg);
-  console.log("Recive YabaCoin's Num :");
+  console.log("Receive YabaCoin's Num :");
 
   var obj = (new Function("return " + msg))();
   console.log(obj.value);
