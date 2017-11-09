@@ -1,7 +1,7 @@
 Thumbs.db
 .DS_Store
 
-/node_modules
-/data
+/backend/node_modules
+/backend/data
 *.toe
 !/TD/YCS_provider.toe
