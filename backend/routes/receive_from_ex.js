@@ -1,9 +1,12 @@
 var moment = require('moment');
 var connection = require('../mysqlConnection');
 const osc = require('node-osc');
+var commonconfig = require('../../commonconfig.js');
+
+var provider_ip = commonconfig.providerIp;
 
 //OSCで受診したコインの枚数に応じて処理を実行
-var oscServer = new osc.Server(4000,'127.0.0.1');
+var oscServer = new osc.Server(4000,provider_ip);
 console.log("OSC RECEIVER");
 
 oscServer.on("message", function (msg, rinfo) {
