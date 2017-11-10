@@ -1,7 +1,7 @@
 var moment = require('moment');
 var connection = require('../mysqlConnection');
 const osc = require('node-osc');
-var commonconfig = require('../../commonconfig.js');
+var commonconfig = require('../../../commonconfig.js');
 
 var provider_ip = commonconfig.providerIp;
 
