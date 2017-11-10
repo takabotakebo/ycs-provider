@@ -63,7 +63,9 @@ router.get('/:yabacoin', function(req, res, next) {
             }
           console.log(jsondata);
           console.log("YE:" + value.yaba_event);
-          writeFile("./public/data/textsdata/text" + index + ".txt", value.yaba_event, cb);
+
+          var writetext  = linesplit(value.yaba_event,5);
+          writeFile("./public/data/textsdata/text" + index + ".txt", writetext, cb);
           jsonfile.writeFile("./public/data/data.json", jsondata, {
               encoding: 'utf-8',
               replacer: null,
@@ -100,5 +102,25 @@ router.get('/:yabacoin', function(req, res, next) {
   accessDB(scalar);
 
 });
+
+//テキストの改行の関数
+function linesplit(text,onelineNum){
+  let writetext = "";
+  let stringCount = text.length;
+
+  let line = Math.floor(stringCount / onelineNum);
+
+  if(line > 0){
+    for(var i = 0; i < line + 1; i++){
+        console.log(text.substr(i * onelineNum,onelineNum) + "\n");
+        writetext = writetext + text.substr(i * onelineNum,onelineNum) + "\n" ;
+    }
+    return writetext;
+  } else{
+    return text;
+  }
+
+}
+
 
 module.exports = router;

@@ -43,7 +43,7 @@ oscServer.on("message", function (msg, rinfo) {
 
         console.log("YC:" + scalar);
         records.forEach(function(value, index) {
-        jsondata["text" + index] = {
+          jsondata["text" + index] = {
               "age" : value.age,
               "gender" : value.gender,
               "yaba_event" : value.yaba_event,
@@ -54,7 +54,9 @@ oscServer.on("message", function (msg, rinfo) {
             }
           console.log(jsondata);
           console.log("YE:" + value.yaba_event);
-          writeFile("../public/data/textsdata/text" + index + ".txt", value.yaba_event);
+
+          var writetext  = linesplit(value.yaba_event,15);
+          writeFile("../public/data/textsdata/text" + index + ".txt", writetext);
           jsonfile.writeFile("../public/data/data.json", jsondata, {
               encoding: 'utf-8',
               replacer: null,
@@ -98,4 +100,23 @@ function writeFile(path, data) {
       console.log("writeFile Pass");
     }
   });
+}
+
+//テキストの改行の関数
+function linesplit(text,onelineNum){
+  let writetext = "";
+  let stringCount = text.length;
+
+  let line = Math.floor(stringCount / onelineNum);
+
+  if(line > 0){
+    for(var i = 0; i < line + 1; i++){
+        console.log(text.substr(i * onelineNum,onelineNum) + "\n");
+        writetext = writetext + text.substr(i * onelineNum,onelineNum) + "\n" ;
+    }
+    return writetext;
+  } else{
+    return text;
+  }
+
 }
