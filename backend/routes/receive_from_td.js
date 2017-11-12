@@ -55,7 +55,7 @@ oscServer.on("message", function (msg, rinfo) {
           console.log(jsondata);
           console.log("YE:" + value.yaba_event);
 
-          var writetext  = linesplit(value.yaba_event,15);
+          var writetext  = linesplit(value.yaba_event,18);
           writeFile("../public/data/textsdata/text" + index + ".txt", writetext);
           jsonfile.writeFile("../public/data/data.json", jsondata, {
               encoding: 'utf-8',

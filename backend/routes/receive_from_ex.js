@@ -7,6 +7,7 @@ var provider_ip = commonconfig.providerIp;
 
 //OSCで受診したコインの枚数に応じて処理を実行
 var oscServer = new osc.Server(4000,provider_ip);
+console.log(provider_ip);
 console.log("OSC RECEIVER");
 
 oscServer.on("message", function (msg, rinfo) {
